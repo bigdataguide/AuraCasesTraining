@@ -1,0 +1,12 @@
+# Intellij files
+.idea
+*.iml
+
+# Mac OS files
+.DS_Store
+
+# tmp files
+lib/*.jar
+target/
+
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.dimension">
+	<!-- Spark Streaming 地区分布 -->
+	<select id="getStreamProvinceList" resultType="Dimension">
+		SELECT dimeId,uv `value`,`value` `name` FROM
+		(SELECT dimeid dimeId,SUM(uv) uv FROM streaming_dimension_data sdd
+		<where>
+			second between #{startSecond} and #{endSecond}
+		</where>
+		GROUP BY dimeid)tmp JOIN common_dimension td ON tmp.dimeId = td.id
+	</select>
+	<!-- Spark Core 流量统计-->
+	<select id="getMemoryList" resultType="Dimension">
+		SELECT `day`,pv,uv,ip,`time` FROM `sparkcore_dimension_data` 
+		WHERE dimeid = 0 AND `day` BETWEEN '2016-12-01' AND '2016-12-07'
+	</select>
+	<!-- Spark Core 维度信息 -->
+	<select id="getMemoryDimensionList" resultType="Dimension">
+		SELECT `value` `name`,dimeId,SUM(pv) pv,SUM(uv) uv,SUM(ip) ip FROM `sparkcore_dimension_data` sdd 
+		JOIN `common_dimension` cd ON sdd.`dimeid` = cd.`id` 
+		WHERE `day` BETWEEN '2016-12-01' AND '2016-12-07' AND `type` = #{type} GROUP BY dimeid ORDER BY uv DESC
+	</select>
+</mapper>

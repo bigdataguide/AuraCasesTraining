@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.learning">
+	<!-- Spark MLlib 性别分类 -->
+	<select id="getGenderList" resultType="Learning">
+		SELECT genderid labelId,SUM(pv) pv,SUM(uv) uv,SUM(ip) ip,`value` `name` FROM `mllib_gender_data` mgd 
+		JOIN `common_gender` cg ON mgd.genderid = cg.id 
+		WHERE `day` BETWEEN '2016-12-01' AND '2016-12-07' GROUP BY genderid
+	</select>
+	
+	<!-- Spark MLlib 频道分类 -->
+	<select id="getChannelList" resultType="Learning">
+		SELECT channelid labelId,SUM(pv) pv,SUM(uv) uv,SUM(ip) ip,`value` `name` FROM `mllib_channel_data` mcd 
+		JOIN `common_channel` cc ON mcd.channelid = cc.id 
+		WHERE `day` BETWEEN '2016-12-01' AND '2016-12-07' GROUP BY channelid
+	</select>
+</mapper>

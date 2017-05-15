@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.content">
+	<!-- Spark Streaming 地区稿件 -->
+	<select id="getStreamProvinceContentList" resultType="Content">
+    	SELECT tmp.contentid,uv `value`,url,title FROM
+		(SELECT contentid,SUM(uv) uv FROM streaming_content_data tcd
+		<where>
+			second between #{startSecond} and #{endSecond}
+		</where> 
+		GROUP BY contentId ORDER BY uv DESC LIMIT 15)tmp JOIN streaming_content_detail tcd ON tmp.contentid = tcd.contentid
+	</select>
+	<!-- Spark Core 稿件排行 -->
+	<select id="getMemoryContentList" resultType="Content">
+		SELECT scda.contentid contentId,SUM(pv) pv,SUM(uv) uv,url,title FROM `sparkcore_content_data` scda 
+		JOIN `sparkcore_content_detail` scdl ON scda.`contentid` = scdl.`contentid` 
+		WHERE `day` BETWEEN '2016-12-01' AND '2016-12-07' GROUP BY scda.contentId ORDER BY uv DESC LIMIT 10
+	</select>
+</mapper>

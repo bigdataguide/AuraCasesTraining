@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 是否支持动态方法调用 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="false" />
+	<!-- spring 托管 -->
+    <constant name="struts.objectFactory" value="spring" />
+    
+    <package name="struts-webaura-default" extends="struts-default">
+    	<interceptors>
+    		<interceptor-stack name="defaultAllStack">
+    			<interceptor-ref name="exception">
+    				<param name="logEnabled">true</param>
+    				<param name="logLevel">warn</param>
+    			</interceptor-ref>
+    			<interceptor-ref name="defaultStack">
+    				<param name="params.excludeParams">(.*\.|^|.*|\[('|"))(c|C)lass(\.|('|")]|\[).*,^dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,^parameters\..*,^action:.*,^method:.*</param>
+    			</interceptor-ref>
+    		</interceptor-stack>
+       	</interceptors>
+        <default-interceptor-ref name="defaultAllStack"></default-interceptor-ref>
+    </package>
+	
+    <package name="struts2" namespace="/common" extends="struts-webaura-default">
+			
+		<action name="stream_*" class="streamAction" method="{1}">
+		</action>
+		
+		<action name="memory_*" class="memoryAction" method="{1}">
+		</action>
+		
+		<action name="learning_*" class="learningAction" method="{1}">
+		</action>
+    </package>
+</struts>

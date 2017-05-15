@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.mllib.classification.NaiveBayesModel","version":"2.0","numFeatures":10000,"numClasses":9}

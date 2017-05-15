@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+	
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="DEBUG" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p]%c - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="DAILYROLLING" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Threshold" value="INFO" />
+		<param name="file" value="${webaura.root}/logs/info.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" /> 
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH\:mm\:ss} [%p]%c - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="ROLLING" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="ERROR" />
+		<param name="file" value="${webaura.root}/logs/error.log" />
+		<param name="MaxFileSize" value="1024KB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p]%-d{yyyy-MM-dd HH\:mm\:ss} %c - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- 
+	<logger name="common" additivity="true"> 
+		<level value="DEBUG" /> 
+	</logger>
+	-->
+	
+	<logger name="com.jolbox.bonecp" additivity="true"> 
+		<level value="DEBUG" /> 
+	</logger>
+	
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DAILYROLLING" />
+		<appender-ref ref="ROLLING" />
+	</root>
+</log4j:configuration>
