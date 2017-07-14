@@ -24,7 +24,7 @@ object GenderModel {
       fs.delete(modelPath, true)
     }
 
-    val list: ListBuffer[Training] = FileUtil.getTrainingList("data/ml/gender.txt")
+    val list: ListBuffer[Training] = FileUtil.getTrainingList("spark-project/analysis/data/ml/gender.txt")
     val arr = FileUtil.getTrainingArrayBuffer(list)
 
     val data = sc.parallelize(arr)

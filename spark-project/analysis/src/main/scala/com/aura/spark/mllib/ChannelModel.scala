@@ -25,7 +25,7 @@ object ChannelModel {
       fs.delete(modelPath, true)
     }
 
-    val list: ListBuffer[Training] = FileUtil.getTrainingList("data/ml/channel.txt")
+    val list: ListBuffer[Training] = FileUtil.getTrainingList("spark-project/analysis/data/ml/channel.txt")
     val arr = FileUtil.getTrainingArrayBuffer(list)
 
     val data = sc.parallelize(arr)

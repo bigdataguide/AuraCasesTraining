@@ -5,7 +5,7 @@ package com.aura.spark.mllib
   */
 object BaseModelUtil {
 
-  private val DEFAULT_MODEL_PATH = "data/model"
+  private val DEFAULT_MODEL_PATH = "spark-project/analysis/data/model"
 
   def modelPath(typ: String, path: String = DEFAULT_MODEL_PATH) = {
     path + "/" + typ

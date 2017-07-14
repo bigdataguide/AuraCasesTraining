@@ -33,7 +33,7 @@ object Config {
 
   def input_path: String = {
     assert(day != null, "should set day before run")
-    "data/logs/aura" + day.replace("-", "") + ".log"
+    "spark-project/analysis/data/logs/aura" + day.replace("-", "") + ".log"
   }
 
   private def loadConfig(config: PropertiesConfiguration) {
