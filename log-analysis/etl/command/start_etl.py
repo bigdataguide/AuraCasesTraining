@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os,time
+import sys,os,time
 
 INTPUT_PATH="hdfs://bigdata:9000/flume/record/"
 OUTPUT_PATH="hdfs://bigdata:9000/etl/record/"
@@ -30,5 +30,23 @@ def startETL():
     load_cmd= LOAD_CMD %(output,subPath.split("/")[0],subPath.split("/")[1])
     os.system(load_cmd)
 
+def startETLForPath(subPath):
+    input=INTPUT_PATH+subPath
+    output=OUTPUT_PATH+subPath
+
+    hadoop_cmd=HADOOP_CMD %(input, output)
+    print hadoop_cmd
+    os.system(hadoop_cmd)
+    print 'loading data into Hive'
+    load_cmd= LOAD_CMD %(output,subPath.split("/")[0],subPath.split("/")[1])
+    os.system(load_cmd)
+
+
 if __name__ == '__main__':
-    startETL()
+    if len(sys.argv) > 1:
+        Ymd=sys.argv[1]
+        HM=sys.argv[2]
+        subPath=Ymd+"/"+HM
+        startETLForPath(subPath)
+    else:
+        startETL()
