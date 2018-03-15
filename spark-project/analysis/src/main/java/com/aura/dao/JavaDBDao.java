@@ -27,6 +27,11 @@ public class JavaDBDao {
             "INSERT INTO mllib_channel_data(channelid,`day`,pv,uv,ip) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE pv = values(pv),uv = values(uv),ip = values(ip)";
     private static final String SAVE_STREAMING_DIMENSION_COUNT =
             "INSERT INTO streaming_dimension_data(dimeid,`second`,pv,uv) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE pv = values(pv),uv = values(uv)";
+    private static final String SAVE_STREAMING_CONTENT_COUNT =
+            "INSERT INTO streaming_content_data(contentid,`second`,pv,uv) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE pv = values(pv),uv = values(uv)";
+    private static final String SAVE_STREAMING_CONTENT_DETAIL =
+            "INSERT INTO streaming_content_detail(contentid,url,title) VALUES (?,?,?) ON DUPLICATE KEY UPDATE url = values(url),title = values(title)";
+
 
     private static void execute(Connection conn, String sql, Object... params) throws SQLException {
         PreparedStatement pstmt = null;
@@ -69,6 +74,14 @@ public class JavaDBDao {
         execute(conn, SAVE_STREAMING_DIMENSION_COUNT, dimId, second, pv, uv);
     }
 
+    public static void saveStreamingContentCount(Connection conn, long contentId, int second, long pv, long uv) throws SQLException {
+        execute(conn, SAVE_STREAMING_CONTENT_COUNT, contentId, second, pv, uv);
+    }
+
+    public static void saveStreamingContentDetail(Connection conn, long contentId, String url, String title) throws SQLException {
+        execute(conn, SAVE_STREAMING_CONTENT_DETAIL, contentId, url, title);
+    }
+
     private static Map<String, Integer> getDimensionValuesByType(Connection conn, String type) {
         Map<String, Integer> dimMap = new HashMap<String, Integer>();
         PreparedStatement pstmt = null;
@@ -96,4 +109,10 @@ public class JavaDBDao {
         Connection conn = DBHelper.getConnection();
         return getDimensionValuesByType(conn, "province");
     }
+
+    public static Map<String, Integer> getSearchEngineMap() {
+        Connection conn = DBHelper.getConnection();
+        return getDimensionValuesByType(conn, "Search-engine");
+    }
+
 }

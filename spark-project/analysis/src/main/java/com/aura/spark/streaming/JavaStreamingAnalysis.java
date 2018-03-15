@@ -112,7 +112,48 @@ public class JavaStreamingAnalysis {
     }
 
     private void processByContent(JavaDStream<Log> logs) {
-        // TODO add your code here
+        JavaDStream<LogRecord> records = logs.map(log ->
+                new LogRecord(0,
+                        secondsOfDay(log.getTs()),
+                        log.getUuid(),
+                        log.getIp(),
+                        log.getUrl(),
+                        log.getTitle(),
+                        log.getContentId(),
+                        log.getArea())
+        );
+        records.foreachRDD(rdd -> {
+            SparkSession spark = SparkSession.builder()
+                    .config(rdd.context().getConf())
+                    .getOrCreate();
+            Dataset<Row> df = spark.createDataFrame(rdd, LogRecord.class);
+            df.createOrReplaceTempView("logs");
+            Dataset<Row> counts = spark.sql("SELECT contentId,second,COUNT(1) AS pv,COUNT(DISTINCT uuid) AS uv FROM logs GROUP BY contentId,second");
+            counts.foreachPartition(rows -> {
+                Connection conn = DBHelper.getConnection();
+                rows.forEachRemaining(row -> {
+                    try {
+                        JavaDBDao.saveStreamingContentCount(conn, row.getLong(0), row.getInt(1), row.getLong(2), row.getLong(3));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+                conn.close();
+            });
+
+            Dataset<Row> details = spark.sql("SELECT DISTINCT contentId,url,title FROM logs");
+            details.foreachPartition(rows -> {
+                Connection conn = DBHelper.getConnection();
+                rows.forEachRemaining(row -> {
+                    try {
+                        JavaDBDao.saveStreamingContentDetail(conn, row.getLong(0), row.getString(1), row.getString(2));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+                conn.close();
+            });
+        });
     }
 
     public static int secondsOfDay(long seconds) {

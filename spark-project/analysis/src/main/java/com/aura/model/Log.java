@@ -10,6 +10,7 @@ public class Log implements Serializable {
     @JsonProperty("Ts") private long ts;
     @JsonProperty("Ip") private String ip;
     @JsonProperty("UUid") private String uuid;
+    @JsonProperty("SearchEngine") private String searchEngine;
     @JsonProperty("Country") private String country;
     @JsonProperty("Area") private String area;
     @JsonProperty("ContentId") private long contentId;
@@ -66,6 +67,14 @@ public class Log implements Serializable {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getSearchEngine() {
+        return searchEngine;
+    }
+
+    public void setSearchEngine(String searchEngine) {
+        this.searchEngine = searchEngine;
     }
 
     public String getCountry() {
