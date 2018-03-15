@@ -15,6 +15,6 @@
 	<select id="getMemoryContentList" resultType="Content">
 		SELECT scda.contentid contentId,SUM(pv) pv,SUM(uv) uv,url,title FROM `sparkcore_content_data` scda 
 		JOIN `sparkcore_content_detail` scdl ON scda.`contentid` = scdl.`contentid` 
-		WHERE `day` BETWEEN '2016-12-01' AND '2016-12-07' GROUP BY scda.contentId ORDER BY uv DESC LIMIT 10
+		GROUP BY scda.contentId ORDER BY uv DESC LIMIT 10
 	</select>
 </mapper>

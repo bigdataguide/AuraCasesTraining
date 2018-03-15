@@ -10,7 +10,9 @@ import com.aura.util.JsonHelper;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller("streamAction")
 public class StreamAction extends BasicActionSupportImpl {
@@ -22,7 +24,14 @@ public class StreamAction extends BasicActionSupportImpl {
 	
 	@Resource(name="contentService")
 	private ContentService contentService;
-	
+
+	public void getStreamStartTime() {
+		long startTime = dimensionService.getStreamStartTime();
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put("start_time", startTime);
+		JsonHelper.printBasicJsonObject(getResponse(), map);
+	}
+
 	/**
 	 * Spark Streaming
 	 * 1. 地区分布

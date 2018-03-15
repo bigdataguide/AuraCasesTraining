@@ -7,12 +7,12 @@ SET NAMES utf8;
 CREATE TABLE IF NOT EXISTS `sparkcore_dimension_data` (
   `dimeid` INT(11) NOT NULL,
   `day` DATE NOT NULL,
-  `pv` INT(11) UNSIGNED NOT NULL,
-  `uv` INT(11) UNSIGNED NOT NULL,
-  `ip` INT(11) UNSIGNED NOT NULL,
-  `time` BIGINT(20) UNSIGNED NOT NULL,
+  `pv` INT(11) UNSIGNED NULL DEFAULT 0,
+  `uv` INT(11) UNSIGNED NULL DEFAULT 0,
+  `ip` INT(11) UNSIGNED NULL DEFAULT 0,
+  `time` BIGINT(20) UNSIGNED NULL DEFAULT 0,
   PRIMARY KEY (`dimeid`,`day`)
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `sparkcore_content_data` (
   `contentid` BIGINT(20) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `sparkcore_content_data` (
   `pv` INT(11) UNSIGNED NOT NULL,
   `uv` INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`contentid`,`day`)
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `sparkcore_content_detail` (
   `contentid` BIGINT(20) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `streaming_dimension_data` (
   `pv` INT(11) UNSIGNED NOT NULL,
   `uv` INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`dimeid`,`second`)
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `streaming_content_data` (
   `contentid` BIGINT(20) NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `streaming_content_data` (
   `pv` INT(11) UNSIGNED NOT NULL,
   `uv` INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`contentid`,`second`)
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `streaming_content_detail` (
   `contentid` BIGINT(20) NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `mllib_gender_data` (
   `uv` INT(11) UNSIGNED NOT NULL,
   `ip` INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`genderid`,`day`)
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `mllib_channel_data` (
   `channelid` INT(11) NOT NULL,
@@ -80,4 +80,4 @@ CREATE TABLE IF NOT EXISTS `mllib_channel_data` (
   `uv` INT(11) UNSIGNED NOT NULL,
   `ip` INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`channelid`,`day`)
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;

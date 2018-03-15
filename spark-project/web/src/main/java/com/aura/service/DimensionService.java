@@ -13,7 +13,14 @@ public class DimensionService extends BasicServiceSupportImpl {
 	
 	@Resource(name="dimensionDao")
 	protected DimensionDao dimensionDao;
-	
+
+	/**
+	 * 获取Streaming起始时间
+	 * @return
+     */
+	public Long getStreamStartTime() {
+		return (Long) dimensionDao.selectObject("common.dimension.getStreamStartTime", null);
+	}
 	/**
 	 * Spark Streaming 地区分布
 	 * @param dimension

@@ -231,7 +231,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	};
 	
 	var interval = 1;
-	var time = 60633;
+    var time = 0;
+
+	function fetchStreamingStartTime() {
+	    var getUrl = "common/stream_getStreamStartTime"
+	    $.ajax({
+	        async:false,
+	        url:getUrl,
+	        type:"get",
+	        dataType:"json",
+	        success:function(data) {
+                time=data.start_time;
+	        }
+	    });
+	}
+
+	fetchStreamingStartTime();
 	
 	function ajaxQuery() {
 		var getUrl = "common/stream_getProvinceList?time=" + time;

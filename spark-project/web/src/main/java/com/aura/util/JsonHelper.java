@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class JsonHelper {
 	
@@ -60,6 +61,17 @@ public class JsonHelper {
 	public static void printBasicJsonObject(HttpServletResponse response, Object object) {
 		String json = JSON.toJSONString(object);
 		log.debug("jsonList: " + json);
+		response.setContentType("text/json;charset=UTF-8");
+		try {
+			response.getWriter().println(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void printBasicJsonMap(HttpServletResponse response, Map<String, Object> map) {
+		String json = JSON.toJSONString(map);
+		log.debug("jsonMap: " + json);
 		response.setContentType("text/json;charset=UTF-8");
 		try {
 			response.getWriter().println(json);
