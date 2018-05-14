@@ -26,6 +26,7 @@
 
     <modules>
         <module>spark-project</module>
+        <module>funnel-analysis</module>
     </modules>
 
     <build>
