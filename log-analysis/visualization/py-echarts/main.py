@@ -24,19 +24,19 @@ def index():
         .y_axis(formatter="{value}") \
         .bar(u"Brand Price", values, show_item_label=True)
 
-    #redis=Redis_Query()
-    #province_price=redis.query_province()
-    #china_province_price=redis.get_province_price(province_price)
-    #print china_province_price
-    #chart3= Chart()\
-    #         .map(china_province_price)
+    redis=Redis_Query()
+    province_price=redis.query_province()
+    china_province_price=redis.get_province_price(province_price)
+    print china_province_price
+    chart3= Chart()\
+             .map(china_province_price)
 
     render = {
         "title": u"电商双十一大数据日志分析系统",
         "templates": [
             {"type": "chart", "title":u"不同年龄消费的情况", "option": json.dumps(chart1, indent=2)},
-            {"type": "chart", "title":u"消费商品的情况", "option": json.dumps(chart2, indent=2)}
-            #{"type": "chart", "title":u"各省购买情况", "option": json.dumps(chart3, indent=2)}
+            {"type": "chart", "title":u"消费商品的情况", "option": json.dumps(chart2, indent=2)},
+            {"type": "chart", "title":u"各省购买情况", "option": json.dumps(chart3, indent=2)}
         ]
     }
     return render_template("main.html", **render)

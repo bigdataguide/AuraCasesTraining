@@ -5,17 +5,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>hadoop-example</artifactId>
-		<groupId>cn.chinahadoop</groupId>
+		<artifactId>log-analysis</artifactId>
+		<groupId>com.aura.cases</groupId>
 		<version>0.1.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>cn.chinahadoop</groupId>
+	<groupId>com.aura.cases</groupId>
 	<artifactId>hadoop-core</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
-	<description>Hadoop Core Examples</description>
-	<name>hadoop core examples</name>
+	<description>Hadoop</description>
+	<name>hadoop</name>
 	<packaging>jar</packaging>
 
 	<properties>

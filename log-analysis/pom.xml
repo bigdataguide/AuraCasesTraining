@@ -4,11 +4,19 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>cn.chinahadoop</groupId>
-  <artifactId>hadoop-example</artifactId>
+
+  <parent>
+    <groupId>com.aura.cases</groupId>
+    <artifactId>main</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <groupId>com.aura.cases</groupId>
+  <artifactId>log-analysis</artifactId>
   <version>0.1.0-SNAPSHOT</version>
-  <description>Hadoop Examples</description>
-  <name>hadoop examples</name>
+  <description>log analysis</description>
+  <name>log analysis</name>
   <packaging>pom</packaging>
 
   <modules>
@@ -16,6 +24,7 @@
     <module>etl/loadDataToHive</module>
     <module>hbase/hbase-ingest</module>
     <module>storm/storm_realtime_process</module>
+      <module>streaming</module>
   </modules>
 
   <repositories>
