@@ -1,6 +1,5 @@
 package com.aura.funnel.spark;
 
-import com.google.common.collect.Lists;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.expressions.MutableAggregationBuffer;
 import org.apache.spark.sql.expressions.UserDefinedAggregateFunction;
@@ -50,7 +49,7 @@ public class FunnelSumUDAF extends UserDefinedAggregateFunction {
         List<Long> buffList = buffer.getList(1);
         int maxEvent = input.getInt(1);
         for(int i=0;i<events;i++){
-            long incr = i <= maxEvent ? 1L : 0L;
+            long incr = i < maxEvent ? 1L : 0L;
             if (buffList.isEmpty()) {
                 cnts.add(incr);
             } else {

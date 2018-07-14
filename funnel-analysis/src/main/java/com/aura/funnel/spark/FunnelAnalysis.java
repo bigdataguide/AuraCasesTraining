@@ -30,8 +30,9 @@ public class FunnelAnalysis {
         Dataset<Row> funnelEvents = events
                 .filter(String.format("day between %s and %s", start, end))
                 .filter(String.format("event_id in (%s)", mkString(eventIds, ",", "", "")))
-                .orderBy("user_id", "timestamp")
                 .select("user_id", "timestamp", "event_id");
+
+        funnelEvents.explain();
 
         spark.udf().register("funnel_count", new FunnelCountUDAF());
         spark.udf().register("funnel_sum", new FunnelSumUDAF());
